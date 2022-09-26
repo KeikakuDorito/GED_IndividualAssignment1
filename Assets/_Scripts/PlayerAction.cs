@@ -157,12 +157,12 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         },
         {
             ""name"": ""Editor"",
-            ""id"": ""d3a2c2cc-7001-45a4-8557-aa0a29eb968b"",
+            ""id"": ""f62546d8-5836-492c-a012-3797a2ea7fef"",
             ""actions"": [
                 {
-                    ""name"": ""EditorMode"",
+                    ""name"": ""EnableEditor"",
                     ""type"": ""Button"",
-                    ""id"": ""8918c4ef-27ec-43fc-b866-a47c06bc3196"",
+                    ""id"": ""3c42b64a-7281-4b11-913f-586a6dd3a519"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -171,7 +171,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""AddItem1"",
                     ""type"": ""Button"",
-                    ""id"": ""7901af29-e2d3-49f7-a1f8-4442dea32d34"",
+                    ""id"": ""357f20db-ce1d-4997-9f9b-4f42becff06d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -180,7 +180,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""AddItem2"",
                     ""type"": ""Button"",
-                    ""id"": ""4f321132-5b5d-4c54-b0f4-381683d27110"",
+                    ""id"": ""cc77a76b-7500-446c-a257-f76a86cd2b81"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -189,7 +189,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": ""DropItem"",
                     ""type"": ""Button"",
-                    ""id"": ""f319c67e-6885-4d3e-bdfc-346b6e999074"",
+                    ""id"": ""83a4fab2-8f9b-42ad-aa9b-8e87947c11d1"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -199,18 +199,18 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""246314dc-f11d-4c2b-8d29-d09663c996ba"",
+                    ""id"": ""ad0d10de-35f9-48dc-93e4-0196c8e02f4f"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""EditorMode"",
+                    ""action"": ""EnableEditor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7ed48bc0-1075-4823-9ae6-d562166a38bd"",
+                    ""id"": ""a37f44a9-b859-4a1d-9353-fd7238037895"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -221,23 +221,23 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""8902b38b-ecc4-40ce-921b-85a96c5f93ad"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""DropItem"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""74762b7b-a204-47bf-8f5f-18a4a634335b"",
+                    ""id"": ""e6974d39-eccb-4db6-832d-a1898fe062f7"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""AddItem2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84e42bc8-58a6-4d46-a5c1-6adf3169f0b2"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DropItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -254,7 +254,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         // Editor
         m_Editor = asset.FindActionMap("Editor", throwIfNotFound: true);
-        m_Editor_EditorMode = m_Editor.FindAction("EditorMode", throwIfNotFound: true);
+        m_Editor_EnableEditor = m_Editor.FindAction("EnableEditor", throwIfNotFound: true);
         m_Editor_AddItem1 = m_Editor.FindAction("AddItem1", throwIfNotFound: true);
         m_Editor_AddItem2 = m_Editor.FindAction("AddItem2", throwIfNotFound: true);
         m_Editor_DropItem = m_Editor.FindAction("DropItem", throwIfNotFound: true);
@@ -374,7 +374,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     // Editor
     private readonly InputActionMap m_Editor;
     private IEditorActions m_EditorActionsCallbackInterface;
-    private readonly InputAction m_Editor_EditorMode;
+    private readonly InputAction m_Editor_EnableEditor;
     private readonly InputAction m_Editor_AddItem1;
     private readonly InputAction m_Editor_AddItem2;
     private readonly InputAction m_Editor_DropItem;
@@ -382,7 +382,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     {
         private @PlayerAction m_Wrapper;
         public EditorActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @EditorMode => m_Wrapper.m_Editor_EditorMode;
+        public InputAction @EnableEditor => m_Wrapper.m_Editor_EnableEditor;
         public InputAction @AddItem1 => m_Wrapper.m_Editor_AddItem1;
         public InputAction @AddItem2 => m_Wrapper.m_Editor_AddItem2;
         public InputAction @DropItem => m_Wrapper.m_Editor_DropItem;
@@ -395,9 +395,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_EditorActionsCallbackInterface != null)
             {
-                @EditorMode.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnEditorMode;
-                @EditorMode.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnEditorMode;
-                @EditorMode.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnEditorMode;
+                @EnableEditor.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnEnableEditor;
+                @EnableEditor.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnEnableEditor;
+                @EnableEditor.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnEnableEditor;
                 @AddItem1.started -= m_Wrapper.m_EditorActionsCallbackInterface.OnAddItem1;
                 @AddItem1.performed -= m_Wrapper.m_EditorActionsCallbackInterface.OnAddItem1;
                 @AddItem1.canceled -= m_Wrapper.m_EditorActionsCallbackInterface.OnAddItem1;
@@ -411,9 +411,9 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
             m_Wrapper.m_EditorActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @EditorMode.started += instance.OnEditorMode;
-                @EditorMode.performed += instance.OnEditorMode;
-                @EditorMode.canceled += instance.OnEditorMode;
+                @EnableEditor.started += instance.OnEnableEditor;
+                @EnableEditor.performed += instance.OnEnableEditor;
+                @EnableEditor.canceled += instance.OnEnableEditor;
                 @AddItem1.started += instance.OnAddItem1;
                 @AddItem1.performed += instance.OnAddItem1;
                 @AddItem1.canceled += instance.OnAddItem1;
@@ -436,7 +436,7 @@ public partial class @PlayerAction : IInputActionCollection2, IDisposable
     }
     public interface IEditorActions
     {
-        void OnEditorMode(InputAction.CallbackContext context);
+        void OnEnableEditor(InputAction.CallbackContext context);
         void OnAddItem1(InputAction.CallbackContext context);
         void OnAddItem2(InputAction.CallbackContext context);
         void OnDropItem(InputAction.CallbackContext context);

@@ -1,26 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
-    // public TextMeshProUGUI text;
-    int score;
+    int score = 0;
 
-    // Start is called before the first frame update
     void Awake()
     {
-        if(instance == null)
-        {
+        if (!instance)
             instance = this;
-        }
     }
 
-    public void ChangeScore(int coinValue)
-    {
+    public void ChangeScore(int coinValue) {
         score += coinValue;
         Debug.Log(score);
-        // text.text = score.ToString();
-    }
+        return;
+     }
 }
