@@ -20,7 +20,7 @@ public class EditorManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        inputAction = PlayerController.instance.inputAction;
+        inputAction = new PlayerAction();
 
         inputAction.Editor.EnableEditor.performed += cntxt => SwitchCamera();
         inputAction.Editor.AddItem1.performed += cntxt => AddItem(1);
@@ -49,7 +49,7 @@ public class EditorManager : MonoBehaviour
 
     private void AddItem(int ItemId)
     {
-        if (editorMode&& !instanciated)
+        if (editorMode && !instanciated)
         {
             switch (ItemId)
             {

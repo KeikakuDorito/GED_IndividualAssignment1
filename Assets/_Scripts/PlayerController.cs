@@ -2,12 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SocialPlatforms.Impl;
-
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController instance;
-
 
     public PlayerAction inputAction;
     Vector2 move;
@@ -24,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
 
     Animator playerAnimator;
-    private bool isWalking = false;
+    private bool isRunning = false;
 
 
     //Projectile Bullets
@@ -36,8 +32,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (!instance)
-            instance = this;
 
         inputAction = new PlayerAction();
 
@@ -47,12 +41,16 @@ public class PlayerController : MonoBehaviour
         inputAction.Player.Jump.performed += cntex =>Jump();
         inputAction.Player.Shoot.performed += cntex => Shoot();
 
-        rb = GetComponent<Rigidbody>();
-        Animator animator = GetComponent<Animator>();
-        playerAnimator = animator;
+        inputAction.Player.Run.performed += cntex => isRunning = true;
+        inputAction.Player.Run.canceled += cntex => isRunning = false;
 
-        distanceToGround = GetComponent<Collider>().bounds.extents.y;
-        Debug.Log(distanceToGround);
+        rb = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
+
+        inputAction.Player.Move.performed += cntex => playerAnimator.SetBool("IsWalking", true);
+        inputAction.Player.Move.canceled += cntex => playerAnimator.SetBool("IsWalking", false);
+
+        distanceToGround = 0.3f;
     }
 
     private void OnEnable()
@@ -67,28 +65,57 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log("jumping");
+      
         if (isGrounded)
         {
-            Debug.Log("jumped");
+            playerAnimator.ResetTrigger("Jumped");
             rb.velocity = new Vector2(rb.velocity.x, jump);
             isGrounded = false;
+            playerAnimator.SetTrigger("Jumped");
         }
     }
 
     public void Shoot()
     {
+        playerAnimator.ResetTrigger("Shooting");
         Rigidbody bulletRB = Instantiate(bullet, projectilePos.position, Quaternion.identity).GetComponent<Rigidbody>();
         bulletRB.AddForce(transform.forward * 37f, ForceMode.Impulse);
-        bulletRB.AddForce(transform.up * 5f, ForceMode.Impulse);
+        //bulletRB.AddForce(transform.up * 5f, ForceMode.Impulse);
+        playerAnimator.SetTrigger("Shooting");
     }
+
+    
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * move.y * Time.deltaTime * walkSpeed, Space.Self);
-        transform.Translate(Vector3.forward * move.x * Time.deltaTime * walkSpeed, Space.Self);
+        if (isRunning)
+        {
+            walkSpeed = 9.5f;
+            playerAnimator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            walkSpeed = 5f;
+            playerAnimator.SetBool("IsRunning", false);
+        }
 
-        isGrounded = Physics.Raycast(transform.position, -Vector3.up, distanceToGround);
+        transform.Translate(Vector3.forward * move.y * Time.deltaTime * walkSpeed, Space.Self);
+
+        Debug.DrawRay(transform.position, Vector3.down * distanceToGround);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, distanceToGround);
+        playerAnimator.SetBool("IsGrounded", isGrounded);
+
+        if (move.x < 0) //Left Direction
+        {
+            transform.localEulerAngles = new Vector3(0, 180, 0);
+            transform.Translate(Vector3.forward * -move.x * Time.deltaTime * walkSpeed, Space.Self);
+        }
+        else if (move.x > 0) //Right Direction
+        {
+            transform.localEulerAngles = new Vector3(0, 0, 0);
+            transform.Translate(Vector3.forward * move.x * Time.deltaTime * walkSpeed, Space.Self);
+        }
+
     }
 }
