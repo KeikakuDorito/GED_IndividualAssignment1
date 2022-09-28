@@ -26,6 +26,7 @@ I expanded onto this by making it a 2D Platformer Shooter game.
 The new features that I added were:
 - Player Animations based on actions
 - The player now changes the direction they are facing depending on input
+- Player Controller now features Running
 - Health System, with a heart pickup to increase Health
 - A simple enemy that damages the player when they collide with it 
 - Destroyable, pushable wooden boxes
