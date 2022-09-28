@@ -4,6 +4,8 @@ Nathan Woo - 100787454
 
 The purpose of this assignment was to demonstrate our engagement in the laboratory activities and to explain how the material learned inside these labs will assist us in the creation of the course project.
 
+3D Models and Animations can be Attributed to Quaternius using the "Platformer Game Kit": https://quaternius.com/index.html
+
 **The work done leading up to week 2 can be found in the _Scene Folder_ as _"Week2Scene"_**
 
 ## Week 1
